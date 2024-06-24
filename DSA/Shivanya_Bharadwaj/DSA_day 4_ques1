@@ -1,0 +1,25 @@
+# Function to check if a string is a palindrome
+def is_palindrome(s):
+   
+    return s == s[::-1]
+
+if __name__ == '__main__':
+    
+    string = input("Enter the string: ")
+   
+    length = int(input("Enter the length of the substrings: "))
+    
+    
+    palindromes = set()
+    
+    
+    for i in range(len(string) - length + 1):
+        # Get the substring of the specified length
+        substring = string[i:i+length]
+        
+        
+        if is_palindrome(substring):
+            palindromes.add(substring)
+    
+   
+    print("Number of distinct palindromic substrings of length", length, ":", len(palindromes))
