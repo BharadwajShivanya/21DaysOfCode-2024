@@ -1,0 +1,48 @@
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+def get_length(head):
+    """Helper function to get the length of a linked list."""
+    length = 0
+    current = head
+    while current:
+        length += 1
+        current = current.next
+    return length
+
+def find_merge_point(head1, head2):
+    """Finds the merge point of two linked lists."""
+    len1 = get_length(head1)
+    len2 = get_length(head2)
+    
+    # Adjust the starting point for the longer list
+    if len1 > len2:
+        for _ in range(len1 - len2):
+            head1 = head1.next
+    else:
+        for _ in range(len2 - len1):
+            head2 = head2.next
+    
+    # Traverse both lists together until we find the merge point
+    while head1 and head2:
+        if head1 == head2:
+            return head1.data
+        head1 = head1.next
+        head2 = head2.next
+    
+    return None
+
+# Example usage
+# Creating the linked list 1 -> 2 -> 3
+head1 = Node(1)
+head1.next = Node(2)
+head1.next.next = Node(3)
+
+# Creating the linked list 4 -> 5 -> 3
+head2 = Node(4)
+head2.next = Node(5)
+head2.next.next = head1.next.next  # Merging point
+
+print(find_merge_point(head1, head2))  # Output should be: 3
