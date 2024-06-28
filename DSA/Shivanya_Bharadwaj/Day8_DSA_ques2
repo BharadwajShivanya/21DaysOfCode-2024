@@ -1,0 +1,53 @@
+from collections import deque
+
+class StackUsingQueues:
+    def __init__(self):
+        self.q1 = deque()
+        self.q2 = deque()
+
+    def push(self, x):
+        self.q1.append(x)
+
+    def pop(self):
+        if self.empty():
+            return None
+        
+        # Move elements from q1 to q2, except the last one
+        while len(self.q1) > 1:
+            self.q2.append(self.q1.popleft())
+        
+        # The last element in q1 is the one to pop
+        popped_element = self.q1.popleft()
+        
+        # Swap the roles of q1 and q2
+        self.q1, self.q2 = self.q2, self.q1
+        
+        return popped_element
+
+    def top(self):
+        if self.empty():
+            return None
+        
+        # Move elements from q1 to q2, except the last one
+        while len(self.q1) > 1:
+            self.q2.append(self.q1.popleft())
+        
+        # The last element in q1 is the one to top
+        top_element = self.q1.popleft()
+        self.q2.append(top_element)  # Put it back in q2
+        
+        # Swap the roles of q1 and q2
+        self.q1, self.q2 = self.q2, self.q1
+        
+        return top_element
+
+    def empty(self):
+        return len(self.q1) == 0
+
+# Example usage
+stack = StackUsingQueues()
+stack.push(1)
+stack.push(2)
+print(stack.top())  # Output: 2
+print(stack.pop())  # Output: 2
+print(stack.top())  # Output: 1
