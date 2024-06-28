@@ -1,0 +1,29 @@
+def max_equal_height(stack1, stack2, stack3):
+    # Calculate the total height of each stack
+    h1, h2, h3 = sum(stack1), sum(stack2), sum(stack3)
+    
+    # Indices to keep track of the top of each stack
+    i, j, k = 0, 0, 0
+    
+    # Loop until all heights are equal
+    while not (h1 == h2 == h3):
+        # Find the stack with the maximum height and remove the top cylinder
+        if h1 >= h2 and h1 >= h3:
+            h1 -= stack1[i]
+            i += 1
+        elif h2 >= h1 and h2 >= h3:
+            h2 -= stack2[j]
+            j += 1
+        else:
+            h3 -= stack3[k]
+            k += 1
+    
+    # All stacks are now the same height
+    return h1
+
+# Example usage
+stack1 = [3, 2, 1, 1, 1]
+stack2 = [4, 3, 2]
+stack3 = [1, 1, 4, 1]
+
+print(max_equal_height(stack1, stack2, stack3))  # Output should be: 5
